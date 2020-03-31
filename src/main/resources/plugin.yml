@@ -15,7 +15,7 @@ permissions:
     description: Allows execution of the main command.
     default: op
   urd.update:
-    description: Automaticaly updates the map. So you don't have to wait for the timer.
+    description: Manually updates the map. So you don't have to wait for the timer.
     default: op
   urd.reload:
     description: Allows you to reload the plugin.

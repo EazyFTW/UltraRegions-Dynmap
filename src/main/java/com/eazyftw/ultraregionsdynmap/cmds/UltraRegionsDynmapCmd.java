@@ -65,11 +65,11 @@ public class UltraRegionsDynmapCmd implements CommandExecutor, TabCompleter {
         if(sender instanceof Player) {
             Player p = (Player)sender;
             new FancyMessage().append("&9/urd <help> &8- &7Shows this message.", true).setHoverAsTooltip("&9/urd <help>", "&7Will show this message.", "", "&9Permission: &7urd.command", "", "&eClick to suggest.").setClickAsSuggestCmd("/urd help").save().send(p);
-            new FancyMessage().append("&9/urd update &8- &7Updates the map automatically.", true).setHoverAsTooltip("&9/urd update", "&7Updates the map automatically, so you don't have to wait for the timer.", "", "&9Permission: &7urd.update", "", "&eClick to suggest.").setClickAsSuggestCmd("/urd update").save().send(p);
+            new FancyMessage().append("&9/urd update &8- &7Updates the map manually.", true).setHoverAsTooltip("&9/urd update", "&7Updates the map manually, so you don't have to wait for the timer.", "", "&9Permission: &7urd.update", "", "&eClick to suggest.").setClickAsSuggestCmd("/urd update").save().send(p);
             new FancyMessage().append("&9/urd reload &8- &7Reloads the plugin.", true).setHoverAsTooltip("&9/urd reload", "&7Reloads the plugin.", "", "&9Permission: &7urd.reload", "", "&eClick to suggest.").setClickAsSuggestCmd("/urd reload").save().send(p);
         } else {
             EZMessage.text("&9/urd <help> &8- &7Shows this message.").sender(sender, true, true, false);
-            EZMessage.text("&9/urd update &8- &7Updates the map automatically.").sender(sender, true, true, false);
+            EZMessage.text("&9/urd update &8- &7Updates the map manually.").sender(sender, true, true, false);
             EZMessage.text("&9/urd reload &8- &7Reloads the plugin.").sender(sender, true, true, false);
         }
         EZMessage.text("").sender(sender);
