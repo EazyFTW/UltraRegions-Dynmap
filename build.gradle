@@ -1,0 +1,113 @@
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'org.hidetake.ssh'
+
+project.tasks.shadowJar.dependsOn build
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
+    }
+    maven {
+        name = 'bungeecord-repo'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven {
+        name = 'minecraft-repo'
+        url = 'https://libraries.minecraft.net'
+    }
+    maven {
+        name = 'jitpack.io'
+        url 'https://jitpack.io'
+    }
+    maven { url "http://repo.dmulloy2.net/nexus/repository/public/" }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+    compileOnly group: 'org.jetbrains', name: 'annotations', version: '13.0';
+    compileOnly files('libs/Dynmap.jar', 'libs/UltraRegions.jar')
+    shadow files('libs/EZApi.jar')
+}
+
+def props = new Properties()
+file("build.properties").withInputStream { props.load(it) }
+
+ssh.remotes {
+    server {
+        host = props.getProperty("host")
+        port = Integer.valueOf(props.getProperty("port"))
+        user = props.getProperty("user")
+        password = props.getProperty("password")
+    }
+}
+
+ssh.settings {
+    knownHosts = allowAnyHosts
+    dryRun = false
+}
+
+task upload {
+    doLast {
+        ssh.run {
+            session(ssh.remotes.server) {
+                put from: files('build/UltraRegionsDynmap.jar'), into: props.getProperty("location")
+            }
+        }
+    }
+}
+
+shadowJar {
+
+    archiveName = "UltraRegionsDynmap.jar"
+    destinationDir = file("build/")
+
+    dependsOn 'build'
+    configurations = [project.configurations.shadow]
+    relocate 'com.eazyftw.api', 'com.eazyftw.ultraregionsdynmap'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'org.hidetake.ssh'
+
+    group = pluginGroup
+    version = pluginVersion
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    compileJava.options.encoding = 'UTF-8'
+
+    assemble.dependsOn shadowJar
+
+    repositories {
+        maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'}
+        maven { url = 'https://oss.sonatype.org/content/repositories/snapshots'}
+
+        jcenter()
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+        classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

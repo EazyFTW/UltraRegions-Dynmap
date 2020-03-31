@@ -1,0 +1,10 @@
+/build.properties
+/libs/
+/.gradle/
+/.idea/
+/build/
+/gradle/
+/gradle.properties
+/gradlew
+/gradlew.bat
+/UltraRegions Dynmap.iml

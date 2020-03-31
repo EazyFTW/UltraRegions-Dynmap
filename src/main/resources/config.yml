@@ -1,0 +1,18 @@
+Prefix: '&9&lURDynmap &8»&7'
+
+#Refresh in minutes. How often the plugin will update the regions on the map.
+RefreshInterval: 1
+
+#The layer name.
+LayerName: 'Regions'
+
+#Marker Styles
+MarkerLineColor: '#FF0000'
+MarkerFillColor: '#FF0000'
+
+MarkerLineWeight: 2
+MarkerLineOpacity: 0.8
+MarkerFillOpacity: 0.35
+
+#Only works for Cuboids due to limitations with Dynmap.
+Use3D: true

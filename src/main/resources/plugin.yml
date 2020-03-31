@@ -1,0 +1,22 @@
+name: UltraRegionsDynmap
+version: 1.0.0
+main: com.eazyftw.ultraregionsdynmap.UltraRegionsDynmap
+api-version: 1.13
+softdepend: [UltraRegions, dynmap]
+authors: [EazyFTW]
+description: Dynmap Support for UltraRegions!
+website: https://eazyftw.com
+commands:
+  urd:
+    description: The main command for UltraRegions Dynmap.
+    aliases: [ultraregionsdynamp, urdynmap, rdynmap]
+permissions:
+  urd.command:
+    description: Allows execution of the main command.
+    default: op
+  urd.update:
+    description: Automaticaly updates the map. So you don't have to wait for the timer.
+    default: op
+  urd.reload:
+    description: Allows you to reload the plugin.
+    default: op
